@@ -17,7 +17,9 @@ export const renderAdminTemplate = (data: ContactRequestBody): { html: string; t
   const company = data.company ? escapeHtml(data.company) : 'N/A';
   const projectType = escapeHtml(data.projectType);
   const budget = data.budget ? escapeHtml(data.budget) : 'N/A';
-  const details = escapeHtml(data.projectDetails).replace(/\n/g, '<br/>');
+  const timeline = data.timeline ? escapeHtml(data.timeline) : 'N/A';
+  const rawDetails = data.projectDetails || data.details || '';
+  const details = escapeHtml(rawDetails).replace(/\n/g, '<br/>');
 
   const html = `
 <!DOCTYPE html>
@@ -66,6 +68,11 @@ export const renderAdminTemplate = (data: ContactRequestBody): { html: string; t
       <div class="label">Budget</div>
       <div class="value">${budget}</div>
     </div>
+
+    <div class="field">
+      <div class="label">Project Timeline</div>
+      <div class="value">${timeline}</div>
+    </div>
     
     <div class="field">
       <div class="label">Message</div>
@@ -88,9 +95,10 @@ Email: ${data.email}
 Company: ${data.company || 'N/A'}
 Project Type: ${data.projectType}
 Budget: ${data.budget || 'N/A'}
+Timeline: ${data.timeline || 'N/A'}
 
 Message:
-${data.projectDetails}
+${rawDetails}
   `.trim();
 
   return { html, text };

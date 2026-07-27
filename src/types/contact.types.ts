@@ -4,7 +4,9 @@ export interface ContactRequestBody {
   company?: string;
   projectType: string;
   budget?: string;
-  projectDetails: string;
+  timeline?: string;
+  projectDetails?: string;
+  details?: string;
   website?: string;
   loadedAt?: number;
 }
