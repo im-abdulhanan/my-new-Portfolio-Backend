@@ -15,9 +15,7 @@ export class SmtpProvider {
 
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: mailConfig.host,
-      port: mailConfig.port,
-      secure: mailConfig.secure,
+      service: 'gmail',
       auth: {
         user: mailConfig.auth.user,
         pass: mailConfig.auth.pass,

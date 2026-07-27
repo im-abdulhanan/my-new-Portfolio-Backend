@@ -24,6 +24,7 @@ export interface ApiErrorResponse {
   message: string;
   requestId: string;
   timestamp: string;
+  errorDetails?: string;
   errors?: Record<string, string[]>;
 }
 
