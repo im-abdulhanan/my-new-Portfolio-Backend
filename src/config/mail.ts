@@ -14,8 +14,8 @@ export interface MailConfig {
 
 export const mailConfig: MailConfig = {
   host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
+  port: env.EMAIL_PORT,
+  secure: env.EMAIL_PORT === 465,
   auth: {
     user: env.EMAIL_USER,
     pass: env.EMAIL_PASS,

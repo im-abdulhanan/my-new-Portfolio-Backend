@@ -19,6 +19,10 @@ const envSchema = z.object({
   EMAIL_PASS: z
     .string({ required_error: 'EMAIL_PASS is required' })
     .min(1, 'EMAIL_PASS cannot be empty'),
+  EMAIL_PORT: z
+    .string()
+    .default('465')
+    .transform((val) => parseInt(val, 10)),
 });
 
 const parseEnv = () => {

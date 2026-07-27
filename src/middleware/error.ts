@@ -48,7 +48,10 @@ export const errorHandler = (
 
   const response: ApiErrorResponse = {
     success: false,
-    message: 'Unable to process project inquiry. Please try again later.',
+    message:
+      process.env.NODE_ENV === 'development'
+        ? err.message
+        : 'Unable to process project inquiry. Please try again later.',
     requestId,
     timestamp,
   };
