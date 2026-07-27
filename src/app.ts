@@ -41,19 +41,29 @@ app.use(compression());
 app.use(requestIdMiddleware);
 
 // CORS configuration
-const allowedOrigins = [env.CLIENT_URL];
+const allowedOrigins = [env.CLIENT_URL, `${env.CLIENT_URL}/`];
 if (env.NODE_ENV === 'development') {
-  allowedOrigins.push('http://localhost:3000', 'http://localhost:5173');
+  allowedOrigins.push(
+    'http://localhost:3000',
+    'http://localhost:3000/',
+    'http://localhost:5173',
+    'http://localhost:5173/',
+  );
 }
 
 app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      const normalizedOrigin = origin.replace(/\/+$/, '');
+      if (allowedOrigins.includes(origin) || allowedOrigins.includes(normalizedOrigin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error(`CORS error: Origin ${origin} not allowed`));
       }
     },
     methods: ['GET', 'POST', 'OPTIONS'],
