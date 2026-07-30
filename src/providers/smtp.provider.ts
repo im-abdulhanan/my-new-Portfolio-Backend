@@ -16,15 +16,13 @@ export class SmtpProvider {
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
+      requireTLS: true,
       auth: {
         user: mailConfig.auth.user,
         pass: mailConfig.auth.pass,
       },
-      connectionTimeout: 30000,
-      greetingTimeout: 30000,
-      socketTimeout: 30000,
     });
   }
 
