@@ -8,6 +8,7 @@ const server = app.listen(env.PORT, () => {
     `🚀 Server listening on port ${env.PORT} in ${env.NODE_ENV} mode`,
   );
   
+  
   // Verify SMTP connection on startup asynchronously
   smtpProvider.verifyConnection();
 });
