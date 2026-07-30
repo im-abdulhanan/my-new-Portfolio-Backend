@@ -44,10 +44,10 @@ export class SmtpProvider {
   public async verifyConnection(): Promise<boolean> {
     try {
       await this.transporter.verify();
-      logger.info('SMTP transporter connection verified successfully');
+      logger.info('✅ SMTP transporter connection verified successfully');
       return true;
     } catch (error) {
-      logger.warn({ error }, 'SMTP connection verification failed');
+      logger.error(error, '❌ SMTP connection verification failed');
       return false;
     }
   }
