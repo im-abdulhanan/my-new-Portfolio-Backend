@@ -46,8 +46,20 @@ export class SmtpProvider {
       await this.transporter.verify();
       logger.info('✅ SMTP transporter connection verified successfully');
       return true;
-    } catch (error) {
-      logger.error(error, '❌ SMTP connection verification failed');
+    } catch (error: unknown) {
+      const err = error as Record<string, unknown> & Error;
+      logger.error(
+        {
+          message: err.message,
+          code: err.code,
+          command: err.command,
+          response: err.response,
+          responseCode: err.responseCode,
+          stack: err.stack,
+        },
+        '❌ SMTP connection verification failed',
+      );
+
       return false;
     }
   }
